@@ -2,6 +2,9 @@
 require "functions.php";
 
     if (isset($_POST["submit"])) {
+
+        // var_dump($_FILES);
+        // die;
         
         if (tambah($_POST) > 0) {
             echo "<script>
@@ -21,7 +24,7 @@ require "functions.php";
     <body>
         <h1>Tambah Data</h1>
         <a href="index.php">kembali</a><br><br>
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
         <table cellpadding="10">
             <tr>
                 <td><label for="nama">nama:</label></td>
@@ -45,7 +48,7 @@ require "functions.php";
             </tr>
             <tr>
                 <td><label for="gambar">gambar:</label></td>
-                <td><input type="text" name="gambar" id="gambar" required></td>
+                <td><input type="file" name="gambar" id="gambar" required></td>
             </tr>
             <tr>
                 <td><button type="submit" name="submit">Tambah Data!</button></td>
