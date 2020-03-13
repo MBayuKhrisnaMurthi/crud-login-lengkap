@@ -1,6 +1,10 @@
 <?php
     require "functions.php";
-    $producs = query("SELECT * FROM producs");
+    $producs = query("SELECT * FROM producs ORDER BY id DESC");
+    
+    if (isset($_POST["cari"])) { 
+        $producs = cari($_POST["keyword"]);
+    }
 ?>
 <html>
 <head>
@@ -9,6 +13,10 @@
 <body>
     <h1>Daftar Barang</h1>
     <a href="tambah.php">Tambah</a><br><br>
+    <form action="" method="POST">
+        <input type="text" name="keyword" autofocus autocomplete="off" placeholder="Masukan keyword pencarian!" size="30">
+        <button type="submit" name="cari">Search</button>
+    </form>
     <table border="1" cellpadding="10" cellspacing="0">
     <tr>
         <th>No</th>

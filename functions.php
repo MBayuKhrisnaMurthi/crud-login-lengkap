@@ -3,7 +3,7 @@ $conn = mysqli_connect("Localhost", "root", "", "phpdasar");
 
 function query($query){
     global $conn;
-    $result = mysqli_query($conn, "SELECT * FROM producs");
+    $result = mysqli_query($conn, $query);
     $rows = [];
     while ($row = mysqli_fetch_assoc($result)) {
         $rows[] = $row;
@@ -54,5 +54,12 @@ function ubah($data){
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
+}
+
+function cari($keyword){
+    $query = "SELECT * FROM producs WHERE
+            nama LIKE '%$keyword%' OR
+            kategori LIKE '%$keyword%'";
+    return query($query);
 }
 ?>
