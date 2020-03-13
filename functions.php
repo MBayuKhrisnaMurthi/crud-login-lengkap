@@ -33,4 +33,26 @@ function hapus($id){
     return mysqli_affected_rows($conn);
 }
 
+function ubah($data){
+    global $conn;
+    $id = $data["id"];
+    $nama = htmlspecialchars($data["nama"]);
+    $kategori = htmlspecialchars($data["kategori"]);
+    $panjang = htmlspecialchars($data["panjang"]);
+    $lebar = htmlspecialchars($data["lebar"]);
+    $tinggi = htmlspecialchars($data["tinggi"]);
+    $gambar = htmlspecialchars($data["gambar"]);
+
+    $query ="UPDATE producs SET
+            nama = '$nama',
+            kategori = '$kategori',
+            panjang = '$panjang',
+            lebar = '$lebar',
+            tinggi = '$tinggi',
+            gambar = '$gambar'
+            WHERE id = $id";
+
+    mysqli_query($conn, $query);
+    return mysqli_affected_rows($conn);
+}
 ?>

@@ -25,7 +25,7 @@
     <tr>
         <td><?= $i; ?></td>
         <td>
-            <a href="ubah.php">Ubah</a> |
+            <a href="ubah.php?id=<?= $produc['id']; ?>">Ubah</a> |
             <a href="hapus.php?id=<?= $produc['id']; ?>" onclick="return confirm('Apakah anda Yakin?')">Hapus</a>
         </td>
         <td><img src="img/<?= $produc['gambar']; ?> " width="100"></td>
