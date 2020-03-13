@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Daftar Barang</h1>
+    <a href="tambah.php">Tambah</a><br><br>
     <table border="1" cellpadding="10" cellspacing="0">
     <tr>
         <th>No</th>
@@ -25,7 +26,7 @@
         <td><?= $i; ?></td>
         <td>
             <a href="ubah.php">Ubah</a> |
-            <a href="hapus.php">Hapus</a>
+            <a href="hapus.php?id=<?= $produc['id']; ?>">Hapus</a>
         </td>
         <td><img src="img/<?= $produc['gambar']; ?> " width="100"></td>
         <td><?= $produc['nama']; ?></td>
