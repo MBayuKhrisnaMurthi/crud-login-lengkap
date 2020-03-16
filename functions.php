@@ -156,3 +156,33 @@ function register($data)
     mysqli_query($conn, "INSERT INTO users VALUES ('','$username','$password')");
     return mysqli_affected_rows($conn);
 }
+
+function login($data)
+{
+    global $conn;
+    $username = $data["username"];
+    $password = $data["password"];
+
+    $result = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
+
+    //cek username
+    if (mysqli_num_rows($result) === 1) {
+        //ambil datanya
+        $row = mysqli_fetch_assoc($result);
+
+        //cek password sesuai atau tidak
+        if (password_verify($password, $row["password"])) {
+            echo "<script>
+                alert('berhasil masuk');
+                document.location.href='index.php';
+            </script>
+            ";
+            exit;
+        } else {
+            echo "<script>
+            alert('username / password salah');
+        </script>
+        ";
+        }
+    }
+}
