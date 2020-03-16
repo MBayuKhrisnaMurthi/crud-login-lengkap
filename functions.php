@@ -1,7 +1,8 @@
 <?php
 $conn = mysqli_connect("Localhost", "root", "", "phpdasar");
 
-function query($query){
+function query($query)
+{
     global $conn;
     $result = mysqli_query($conn, $query);
     $rows = [];
@@ -11,7 +12,8 @@ function query($query){
     return $rows;
 }
 
-function tambah($data){
+function tambah($data)
+{
     global $conn;
     $nama = htmlspecialchars($data["nama"]);
     $kategori = htmlspecialchars($data["kategori"]);
@@ -24,20 +26,22 @@ function tambah($data){
         return false;
     }
 
-    $query ="INSERT INTO producs VALUES
+    $query = "INSERT INTO producs VALUES
             ('','$nama','$kategori','$panjang','$lebar','$tinggi','$gambar')";
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
 }
 
-function hapus($id){
+function hapus($id)
+{
     global $conn;
     mysqli_query($conn, "DELETE FROM producs WHERE id = $id");
     return mysqli_affected_rows($conn);
 }
 
-function ubah($data){
+function ubah($data)
+{
     global $conn;
     $id = $data["id"];
     $nama = htmlspecialchars($data["nama"]);
@@ -49,11 +53,11 @@ function ubah($data){
     //jika mengubah gambar
     if ($_FILES['gambar']['error'] === 0) {
         $gambar = upload();
-    } else{
+    } else {
         $gambar = htmlspecialchars($data["gambarlama"]);
     }
 
-    $query ="UPDATE producs SET
+    $query = "UPDATE producs SET
             nama = '$nama',
             kategori = '$kategori',
             panjang = '$panjang',
@@ -66,14 +70,16 @@ function ubah($data){
     return mysqli_affected_rows($conn);
 }
 
-function cari($keyword){
+function cari($keyword)
+{
     $query = "SELECT * FROM producs WHERE
             nama LIKE '%$keyword%' OR
             kategori LIKE '%$keyword%'";
     return query($query);
 }
 
-function upload(){
+function upload()
+{
     $name = $_FILES['gambar']['name'];
     $tmp_name = $_FILES['gambar']['tmp_name'];
     $error = $_FILES['gambar']['error'];
@@ -112,8 +118,41 @@ function upload(){
     $name .= $ekstensi;
 
     //jika lolos ke3 seleksi
-    move_uploaded_file($tmp_name, 'img/'. $name);
+    move_uploaded_file($tmp_name, 'img/' . $name);
 
     return $name;
 }
-?>
+
+function register($data)
+{
+    global $conn;
+    $username = $data["username"];
+    $password = $data["password"];
+    $password2 = $data["password2"];
+
+    //jika username sudah digunakan
+    $result = mysqli_query($conn, "SELECT username FROM users WHERE username = '$username'");
+    if (mysqli_fetch_assoc($result)) {
+        echo "<script>
+            alert('Username already is taken!');
+        </script>
+        ";
+        return false;
+    }
+
+    //cek password not match
+    if ($password !== $password2) {
+        echo "<script>
+            alert('Password not match!');
+        </script>
+        ";
+        return false;
+    }
+
+    //bcript password
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    //insert syntaq
+    mysqli_query($conn, "INSERT INTO users VALUES ('','$username','$password')");
+    return mysqli_affected_rows($conn);
+}
