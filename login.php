@@ -1,14 +1,17 @@
 <?php
 session_start();
 
+//cek cookie
+if (isset($_COOKIE["login"])) {
+    if ($_COOKIE["login"] == 'true') {
+        $_SESSION["login"] = true;
+    }
+}
 require "functions.php";
 
 //if login
 if (isset($_SESSION['login'])) {
-    echo "<script>
-                document.location.href='index.php';
-            </script>
-            ";
+    header("Location: index.php");
 }
 
 if (isset($_POST["login"])) {
@@ -27,6 +30,12 @@ if (isset($_POST["login"])) {
 
             //generate session
             $_SESSION["login"] = true;
+
+            //cek remember me
+            if (isset($_POST["remember"])) {
+                //buat cookie
+                setcookie("login", "true", time() + 60);
+            }
 
             echo "<script>
                 alert('berhasil masuk');
@@ -59,6 +68,10 @@ if (isset($_POST["login"])) {
             <tr>
                 <td><label for="password">Password</label></td>
                 <td><input type="password" name="password" id="password" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td><label for="remember">Remember Me</label></td>
+                <td><input type="checkbox" name="remember" id="remember"></td>
             </tr>
             <tr>
                 <td></td>

@@ -3,11 +3,15 @@ require "functions.php";
 
     //if no login
     if (!isset($_SESSION['login'])) {
-        echo "<script>
-                    alert('login terlebih dahulu');
-                    document.location.href='login.php';
-                </script>
-                ";
+        //v1
+        // echo "<script>
+        //             alert('login terlebih dahulu');
+        //             document.location.href='login.php';
+        //         </script>
+        //         ";
+        
+        //v2
+        header("Location: login.php");
     }
 
 $id = $_GET["id"];
