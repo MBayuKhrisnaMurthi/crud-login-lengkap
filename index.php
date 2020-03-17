@@ -25,6 +25,7 @@ session_start();
 </head>
 <body>
     <h1>Daftar Barang</h1>
+    <a href="logout.php">Logout</a><br><br>
     <a href="tambah.php">Tambah</a><br><br>
     <form action="" method="POST">
         <input type="text" name="keyword" autofocus autocomplete="off" placeholder="Masukan keyword pencarian!" size="30">
