@@ -1,5 +1,15 @@
 <?php
+session_start();
 require "functions.php";
+
+//if no login
+    if (!isset($_SESSION['login'])) {
+        echo "<script>
+                    alert('login terlebih dahulu');
+                    document.location.href='login.php';
+                </script>
+                ";
+    }
 
 //ambil data sesuai id dulu
 $id = $_GET["id"];

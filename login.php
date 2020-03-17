@@ -1,5 +1,15 @@
 <?php
+session_start();
+
 require "functions.php";
+
+//if login
+if (isset($_SESSION['login'])) {
+    echo "<script>
+                document.location.href='index.php';
+            </script>
+            ";
+}
 
 if (isset($_POST["login"])) {
     $username = $_POST["username"];
@@ -14,6 +24,10 @@ if (isset($_POST["login"])) {
 
         //cek password sesuai atau tidak
         if (password_verify($password, $row["password"])) {
+
+            //generate session
+            $_SESSION["login"] = true;
+
             echo "<script>
                 alert('berhasil masuk');
                 document.location.href='index.php';

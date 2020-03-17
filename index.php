@@ -1,4 +1,17 @@
 <?php
+session_start();
+
+//if no login
+    if (!isset($_SESSION['login'])) {
+        echo "<script>
+                    alert('login terlebih dahulu');
+                    document.location.href='login.php';
+                </script>
+                ";
+
+        //v2
+        // header("Location: login.php");
+    }
     require "functions.php";
     $producs = query("SELECT * FROM producs ORDER BY id DESC");
     
